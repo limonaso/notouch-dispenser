@@ -1,6 +1,6 @@
 /**####################################################
 #            *              *                    *    #
-#   *            Expendedor_covid19.ino      *      * #
+#   *            dispenser_anticovid19.ino   *      * #
 #        Usando sensor de ultrasonidos HC-SR04        #
 #      *        y micro servos SG90.                  #
 #            *      *                    *            #
@@ -9,67 +9,67 @@
 ####################################################**/
 
 
-#include <Servo.h>                              //incluyo la biblioteca de servos para facilitar su uso
+#include <Servo.h>                              //include the library of the servos to makwe easier their use
 
-const int EcoPin = 5;                          //declaro pin de emision de la onda sonica
-const int DisparoPin = 6;                       //declaro pin de sensor de la onda sonica
-int pos = 1500;                              //valor posicion de ambos servos
+const int EchoPin = 5;                           //emitter pin from HC-SR04
+const int TrigPin = 6;                       //receiver pin from HC-HCSR04
+int pos = 1500;                                 //entire value position in microseconds for servos
 
-Servo jabon;                                    //crea un objeto para controlar el servo
-Servo jabon2;
+Servo dispenser;                                    //create a different object to control each servo
+Servo dispenser2;
 
-void setup()                                    //funcion de pre-configuracion al inicio, solo se ejecuta 1 vez
+void setup()                                    //function of starting pre-config, only run once
 {
-  pinMode(DisparoPin, OUTPUT);                 //Declaro pin del emisor como salida 
-  pinMode(EcoPin, INPUT);                      //Declaro pin del sensor como entrada 
-  jabon.attach(9,1000,2000);                             //vincular pin 9 a servo 1, valor minimo 1000 microsegs de giro hasta 2000 microsegs(0-180º)
-  jabon2.attach(10,1000,2000);                           //vincular pin10 a servo 2, valor minimo 1000 microsegs de giro hasta 2000 microsegs(0-180º)
-  Serial.begin(9600);                           //Inicio puerto de comunicaciones a velocidad de datos - 9600 baudios
-  jabon.write(pos);                             //posicion inicial central para el servo 1, valor escala 0-180 grados basandose entre 1000microseg y 2000microseg
-  jabon2.write(pos);                            //posicion inicial central para el servo 2, valor escala 0-180 grados b..
+  pinMode(TrigPin, OUTPUT);                 //emitter pin HC-SR04 as output 
+  pinMode(EchoPin, INPUT);                      //receiver pin HC-SR04 as input 
+  dispenser.attach(9,1000,2000);                             //link pin 9 to servo 1, min value 1000 microsegs to 2000 microsegs(0-180º)
+  dispenser2.attach(10,1000,2000);                           //link pin 10 to servo 2, min value 1000 microsegs to 2000 microsegs(0-180º)
+  Serial.begin(9600);                           //Start serial communication with 9600 baudios speed data.
+  dispenser.write(pos);                             //initial central position for both servos
+  dispenser2.write(pos);                            
 }
 
-void loop()                                      //funcion cíclica en la que se centran las tareas que realizara el arduino en bucle, se ejecuta infinitamente
+void loop()                                      
 {
-  int cm = ping(DisparoPin, EcoPin);             //creo valor entero cm y le vinculo el valor de la funcion externa ping nombrando pines del sensor ultrasonico 
-  Serial.print("Distancia: ");                   //imprime por el puerto de comunicaciones serie el texto para encabezar el valor de cm
-  Serial.println(cm);                            //imprime valor de distancia
+  int cm = ping(TrigPin, EchoPin);             //making entire value for centimeters and linking the function ping value with the HC-SR04 pines
+  Serial.print("Distance: ");                   //print the header of the centimeters value in serial com
+  Serial.println(cm);                            //print the decimal value to show the centimeters distance
 
-  if (cm <= 6)                                   //si la distancia de la mano es menor o igual de 6cm apretar expendedor de jabon o alcohol
+  if (cm <= 6)                                   //if distance from hand to sensor is less or same than 6cm, activate dispenser
   {
-        for (pos = 1500; pos <= 2000; pos += 500)                //valor pos va de 90 a 180 grados en un paso de 500 microsegs
+        for (pos = 1500; pos <= 2000; pos += 500)                //position value goes from 90 to 180 degrees in a step of 500 microseconds
       { 
-        jabon.writeMicroseconds(pos);                                //posiciona servo segun el valor de pos
-        jabon2.writeMicroseconds(pos);                               //posiciona servo2 segun el valor de pos
-        delay(15);                                            //espera 15 milisegundos para que el servo vaya a la posicion
+        dispenser.writeMicroseconds(pos);                                //positioning servo 1 with pos value
+        dispenser2.writeMicroseconds(pos);                               //positioning servo 2 with pos value too
+        delay(15);                                              //waiting 15 milliseconds for servo reaches the position
       } 
   }
   
-  else                                                       //si no se detecta la proximidad, volver al estado inicial
+  else                                                       //if not detects proximity, start position for servos
   {
-        for (pos = 2000; pos >= 1500; pos -= 500)               //valor pos va de 180 a 0 grados en un paso de 500 microsegs
+        for (pos = 2000; pos >= 1500; pos -= 500)               //position value goes from 2000 to 1500 in a step of 500 microseconds
       { 
-        jabon.writeMicroseconds(pos);                               //posiciona servo1 segun valor de pos
-        jabon2.writeMicroseconds(pos);                              //posiciona servo2 segun valor de pos
-        delay(15);                                      //espera 15 milisegundos para que el servo2 vaya a la posicion
+        dispenser.writeMicroseconds(pos);                               //positioning servo 2 with pos value
+        dispenser2.writeMicroseconds(pos);                              //positioning servo 2 with pos value too
+        delay(15);                                      //position value goes from 2000 to 1500 in a step of 500 microseconds
       }
   }
                             
-  delay(250);                                    //dar un cuarto de segundo de pausa de interrupcion de refresco
+  delay(250);                                    
 }
 
-int ping(int DisparoPin, int EcoPin)            //creo el entero ping que constara del tiempo de la emision y recepcion de la onda para determinar la distancia en cm 
+int ping(int TrigPin, int EchoPin)            //making entire ping for calculate time between sending and receiving ultrasonic pulse to know distance of hand
 {
-  long duracion, distanciaCm;                   //creo dos valores largos para introducir las mediciones de la duracion de la onda y el resultado de la distancia
+  long duration, distanceCm;                   //making two long values to host the result of measuring the duration wave & physical distance in cm
   
-  digitalWrite(DisparoPin, LOW);                 //para generar un pulso limpio pongo a LOW 4 microsegundos
+  digitalWrite(TrigPin, LOW);                 //to generate a clean pulse, putting emitter to LOW for 4 microsegundos
   delayMicroseconds(4);
-  digitalWrite(DisparoPin, HIGH);                //genero disparo de 10 microsegundos
+  digitalWrite(TrigPin, HIGH);                //generating pulse during 10 microseconds
   delayMicroseconds(10);
-  digitalWrite(DisparoPin, LOW);                 //apago emisor de pulso sonico
+  digitalWrite(TrigPin, LOW);                 //shutdown the emitter
   
-  duracion = pulseIn(EcoPin, HIGH);              //medimos el tiempo entre pulsos, en microsegundos
+  duration = pulseIn(EchoPin, HIGH);              //measuring time between pulses, in microseconds
   
-  distanciaCm = duracion * 10 / 292/ 2;             //convertimos a distancia, en cm
-  return distanciaCm;                               //vuelve arriba hasta el valor distanciaCm para repetir el proceso y refrescar valor
+  distanceCm = duration * 10 / 292/ 2;             //converting distance in cm
+  return distanceCm;                               //returning up to distanceCm value to repeat the process and refresh it
 }
