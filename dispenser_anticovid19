@@ -1,8 +1,8 @@
 /**####################################################
 #            *              *                    *    #
-#   *            dispenser_anticovid19.ino   *      * #
-#        Usando sensor de ultrasonidos HC-SR04        #
-#      *        y micro servos SG90.                  #
+#   *           dispenser_anticovid19.ino   *      *  #
+#            Using ultrasonic sensor HC-SR04          #
+#      *        and micro servos SG90.                #
 #            *      *                    *            #
 #               Copyright: Limonaso 2020  *       *   #                        
 #     *        *          *                 *         #
