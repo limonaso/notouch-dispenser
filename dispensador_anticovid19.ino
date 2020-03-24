@@ -1,6 +1,6 @@
 /**####################################################
 #            *              *                    *    #
-#   *            expendedor_anticovid19.ino      *   *#
+#   *           dispensador_anticovid19.ino      *   *#
 #        Usando sensor de ultrasonidos HC-SR04        #
 #      *        y micro servos SG90.                  #
 #            *      *                    *            #
