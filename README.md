@@ -12,4 +12,7 @@ The specific primary pines to build de project are:
 -MICRO SERVO SG90 1 = 9.
 -MICRO SERVO SG90 2 = 10.
 
+To get the electrical part list and wiring files
+just dm me. I'll send it for free.
+
 **STAY AT HOME**
