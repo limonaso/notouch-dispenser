@@ -15,6 +15,9 @@ The specific primary pines to build de project are:
 To get the electrical part list and wiring files
 just dm me. I'll send it for free.
 
+*Now I'm developing the code adapted to use with the gesture sensor APDS9960 which is better giving
+a lot of more possibilities of utility. Next hours will be uploaded.
+
 REALLY YOU CAN USE THIS CODE ARCHITECTURE TO DIY ANY KIND OF PROJECT TO AUTOMATE A LOT OF THINGS JUST
 MODIFYING IT A LITTLE BIT. THIS PROJECT IS ONLY AN EXAMPLE OF IT ORIENTED TO THE FREQUENTLY USE OBJECTS  
 
