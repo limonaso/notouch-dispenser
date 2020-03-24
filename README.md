@@ -1,4 +1,6 @@
 # notouch-dispenser
+Imagine a daily life with notouch objects interaction.
+-Project Example-
 Arduino file to make your own DIY soap/hydroalcohol dispenser gel. Ultrasonic HC-SR04 or Gesture APDS 9960 sensors based. This last uses ONLY a 3.3V voltage. If NOT, you'll damage your board. Be careful.
 
 Languages: English, Spanish.
