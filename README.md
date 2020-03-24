@@ -15,4 +15,7 @@ The specific primary pines to build de project are:
 To get the electrical part list and wiring files
 just dm me. I'll send it for free.
 
+REALLY YOU CAN USE THIS CODE ARCHITECTURE TO DIY ANY KIND OF PROJECT TO AUTOMATE A LOT OF THINGS JUST
+MODIFYING IT A LITTLE BIT. THIS PROJECT IS ONLY AN EXAMPLE OF IT ORIENTED TO THE FREQUENTLY USE OBJECTS  
+
 **STAY AT HOME**
