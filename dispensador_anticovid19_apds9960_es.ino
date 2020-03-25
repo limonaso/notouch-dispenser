@@ -1,6 +1,6 @@
-/**######################################################
+  /**####################################################
   #            *              *                    *    #
-  #   *          Dispernsador_covid19.ino      *       *#
+  #   *           dispensador_anticovid19.ino      *   *#
   #        Usando sensor de gestos APDS9960             #
   #      *        y micro servos SG90.                  #
   #            *      *                    *            #
@@ -8,14 +8,14 @@
   #     *        *          *                 *         #
   ####################################################**/
 
-#include "Adafruit_APDS9960.h"                 //incluyo biblioteca para usar el sensor de gestos
+#include "Adafruit_APDS9960.h"                  //incluyo biblioteca para usar el sensor de gestos
 #include <Servo.h>                              //incluyo la biblioteca de servos para facilitar su uso
 
 Adafruit_APDS9960 apds;                       //creando un objeto para nombrar al sensor
-int pos = 1500;                              //valor posicion de ambos servos
-//int movimiento_abajo = 0;                  //variables para almacenar el estado de la lectura de movimiento de cada gesto
-//int movimiento_arriba = 0;                   inhabilito el eje y debido al tipo de proyecto al que va dirigido este codigo
-int movimineto_izquierda = 0;
+int pos = 1500;                               //valor posicion de ambos servos
+//int movimiento_abajo = 0;                   variables para almacenar el estado de la lectura de movimiento de cada gesto
+//int movimiento_arriba = 0;                  inhabilito el eje y debido al tipo de proyecto al que va dirigido este codigo
+int movimiento_izquierda = 0;
 int movimiento_derecha = 0;
 
 Servo jabon;                                    //crea un objeto para controlar el servo
@@ -28,7 +28,7 @@ void setup()                                    //funcion de pre-configuracion a
   Serial.begin(115200);                           //Inicio puerto de comunicaciones a velocidad de datos - 115200 baudios
   jabon.write(pos);                             //posicion inicial central para el servo 1, valor escala 0-180 grados basandose entre 1000microseg y 2000microseg
   jabon2.write(pos);                            //posicion inicial central para el servo 2, valor escala 0-180 grados b..
-  if (!apds.begin())                            //si no se detecta sensor, mostrar fallo por seral com
+  if (!apds.begin())                            //si no se detecta sensor, mostrar fallo por serial com
     Serial.println("Fallo al inicializar el dispositivo! Por favor checkea las conexiones.");
   apds.enableProximity(true);                   //habilitar deteccion de proximidad
   apds.enableGesture(true);                     //habilitar deteccion de gestos
@@ -51,7 +51,7 @@ void loop()                                      //funcion ciclica en la que se 
       delay(15);                                            //espera 15 milisegundos para que el servo vaya a la posicion
     }
     movimiento_izquierda == 0;                              //devuelve el estado inicial a la variables de estado para que entren en else
-    movimiento_derecha == 0;                                  y los servos vuelvan a la posicion inicial
+    movimiento_derecha == 0;                                  //y los servos vuelvan a la posicion inicial
   }
 
   else                                                       //si no se detecta interaccion con el sensor, volver al estado inicial
@@ -66,4 +66,3 @@ void loop()                                      //funcion ciclica en la que se 
 
   delay(250);                                    //dar un cuarto de segundo de pausa
 }
-
